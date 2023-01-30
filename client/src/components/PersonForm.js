@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-const PersonForm= () => {
+const PersonForm= (props) => {
+    const {people, setPeople} = props;
     const [firstName, setFirstName] = useState(""); 
     const [lastName, setLastName] = useState("");
     const onSubmitHandler = (e) => {
@@ -14,6 +15,10 @@ const PersonForm= () => {
             .then(res=>{
                 console.log(res); // always console log to get used to tracking your data!
                 console.log(res.data);
+                // we will update the lifted state of our people array 
+                //    to include the current value in state plus the single 
+                //    new object created and returned from our post request. 
+                setPeople([...people, res.data]); //this is new
             })
             .catch(err=>console.log(err))
     }
